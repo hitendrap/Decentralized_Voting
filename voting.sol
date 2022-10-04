@@ -18,7 +18,7 @@ contract first
     uint public community1;
     uint public community2;
     uint public community3;
-
+    // Register a new Voter
     function registerVoter(string memory voterId) public {
         _tokenIds.increment();
         uint tokenId = _tokenIds.current();
@@ -35,12 +35,12 @@ contract first
         idToVoterDetails[tokenId].isVoted = false;
 
     }
-
+    // Return Voter Details
     function voterDetail(uint tokenId)public view returns (voterDetails memory) {
         voterDetails memory items = idToVoterDetails[tokenId];
         return items;
     }
-
+    // fetch voter's details
     function fetchmyDetails() public view returns (voterDetails[] memory) {
         uint totalItemCount = _tokenIds.current();
         uint itemCount = 0;
@@ -63,7 +63,7 @@ contract first
         return items;
     }
 
-
+    // votind functions
     function vote_community1 (uint tokenId) public
     {
         require(idToVoterDetails[tokenId].voter == msg.sender,"invalid tokenId");
@@ -85,7 +85,7 @@ contract first
         community3 = community3 + 1;
         idToVoterDetails[tokenId].isVoted = true;
     }
-
+    // reset voting
     function resetVoting() public {
         require(contractOwner == msg.sender,"you are not Owner");
         for(uint i = 0;i< _tokenIds.current();i++){
